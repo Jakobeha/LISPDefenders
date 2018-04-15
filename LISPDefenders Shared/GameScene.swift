@@ -9,11 +9,9 @@
 import SpriteKit
 
 class GameScene: SKScene {
-    
-    
-    fileprivate var label : SKLabelNode?
-    fileprivate var spinnyNode : SKShapeNode?
-
+    var label : SKLabelNode?
+    var world : LispWorldController?
+    var prevTime: TimeInterval?
     
     class func newGameScene() -> GameScene {
         // Load 'GameScene.sks' as an SKScene.
@@ -30,61 +28,31 @@ class GameScene: SKScene {
     
     func setUpScene() {
         // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
+        label = self.childNode(withName: "//helloLabel") as? SKLabelNode
+        if let label = label {
             label.alpha = 0.0
             label.run(SKAction.fadeIn(withDuration: 2.0))
         }
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 4.0
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-            
-            #if os(watchOS)
-                // For watch we just periodically create one of these and let it spin
-                // For other platforms we let user touch/mouse events create these
-                spinnyNode.position = CGPoint(x: 0.0, y: 0.0)
-                spinnyNode.strokeColor = SKColor.red
-                self.run(SKAction.repeatForever(SKAction.sequence([SKAction.wait(forDuration: 2.0),
-                                                                   SKAction.run({
-                                                                       let n = spinnyNode.copy() as! SKShapeNode
-                                                                       self.addChild(n)
-                                                                   })])))
-            #endif
-        }
+        world = LispWorldController(template: Template.parse(fileWithName: "Standard"), scene: self)
     }
     
-    #if os(watchOS)
-    override func sceneDidLoad() {
-        self.setUpScene()
-    }
-    #else
     override func didMove(to view: SKView) {
-        self.setUpScene()
-    }
-    #endif
-
-    func makeSpinny(at pos: CGPoint, color: SKColor) {
-        if let spinny = self.spinnyNode?.copy() as! SKShapeNode? {
-            spinny.position = pos
-            spinny.strokeColor = color
-            self.addChild(spinny)
-        }
+        setUpScene()
     }
     
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        if let prevTime = prevTime {
+            let deltaTime = CGFloat(currentTime - prevTime)
+            
+            world?.update(deltaTime: deltaTime)
+        }
+        
+        prevTime = currentTime
     }
 }
 
-#if os(iOS) || os(tvOS)
+/*#if os(iOS) || os(tvOS)
 // Touch-based event handling
 extension GameScene {
 
@@ -139,6 +107,5 @@ extension GameScene {
         self.makeSpinny(at: event.location(in: self), color: SKColor.red)
     }
 
-}
-#endif
+}*/
 
