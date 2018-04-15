@@ -6,11 +6,11 @@
 import Foundation
 
 extension Array {
-    static func zipWith<T1, T2>(_ x: [T1], y: [T2], reducer: (T1, T2) -> Element) -> [Element] {
+    static func zipWith<T1, T2>(_ x: [T1], _ y: [T2], combiner: (T1, T2) -> Element) -> [Element] {
         var res = [] as [Element]
         var i = 0
         while i < x.count && i < y.count {
-            res.append(reducer(x[i], y[i]))
+            res.append(combiner(x[i], y[i]))
             i += 1
         }
         return res

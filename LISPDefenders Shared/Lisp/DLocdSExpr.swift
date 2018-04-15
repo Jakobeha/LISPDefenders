@@ -42,7 +42,7 @@ extension DLocd where T == UnDLocdSExpr {
             }
             
             var curPrint = print
-            for (oldItem, newItem) in Array.zipWith(oldContents, y: newContents, reducer: { ($0, $1) }) {
+            for (oldItem, newItem) in Array.zipWith(oldContents, newContents, combiner: { ($0, $1) }) {
                 guard oldItem.print.count == newItem.print.count else {
                     fatalError("Can't translate between lists with elements of different print length - information is lost.")
                 }

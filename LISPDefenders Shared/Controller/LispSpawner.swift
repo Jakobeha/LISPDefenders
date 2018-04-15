@@ -17,8 +17,8 @@ class LispSpawner {
         let bounds = LispNodeController.boundsOf(expr: spawnExpr)
         let posn = CGPoint(
             x: Random.within(
-                min: world.scene.bounds.minX + (bounds.width / 2),
-                max: world.scene.bounds.maxX - (bounds.width / 2)
+                min: world.scene.bounds.minX,
+                max: world.scene.bounds.maxX - bounds.width
             ),
             y: world.scene.bounds.maxY + bounds.height
         )

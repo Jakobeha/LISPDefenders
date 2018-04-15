@@ -9,6 +9,10 @@
 import SpriteKit
 
 class CannonController {
+    static let cannonSideTiltLimit: CGFloat = CGFloat.pi * 0.4
+    static let cannonSideTiltMin: CGFloat = -CannonController.cannonSideTiltLimit
+    static let cannonSideTiltMax: CGFloat = CannonController.cannonSideTiltLimit
+
     static func getNextItem(prev: SEmoji? = nil) -> SEmoji {
         let potential = SEmoji.neutralRand.fillIfRand()
         if potential != prev {
@@ -57,7 +61,11 @@ class CannonController {
     }
     
     func point(at headLoc: CGPoint) {
-        direction = CGSize(point: headLoc).direction
+        direction = CGFloat.clamp(
+            CGSize(point: headLoc).direction,
+            min: CannonController.cannonSideTiltMin,
+            max: CannonController.cannonSideTiltMax
+        )
     }
     
     func fire() {

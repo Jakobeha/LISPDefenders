@@ -16,6 +16,13 @@ extension CGPoint {
         )
     }
     
+    static func -(_ a: CGPoint, _ b: CGPoint) -> CGSize {
+        return CGSize(
+            width: a.x - b.x,
+            height: a.y - b.y
+        )
+    }
+    
     static func *(_ a: CGPoint, _ scale: CGFloat) -> CGPoint {
         return CGPoint(
             x: a.x * scale,

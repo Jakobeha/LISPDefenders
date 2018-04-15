@@ -33,47 +33,51 @@ extension SKLabelNode {
         return SKFont(name: fontName, size: fontSize)!
     }
     
-    func multilined() -> (SKNode, CGSize) {
+    func multilined() -> SKNode {
+        assert(text != nil, "Can't create multiline string without text.")
         assert(font != nil, "Can't create multiline string without a font.")
         
-        let substrings: [String] = self.text!.components(separatedBy: "\n")
+        let bounds = (text! as NSString).size(withAttributes: [.font: self.font!])
+        let substrings: [String] = text!.components(separatedBy: "\n")
         
         let res = SKNode()
         var labels = [] as [SKLabelNode]
-        var curWidth = 0 as CGFloat
-        var curHeight = 0 as CGFloat
+        var curStr: String = ""
         for substring in substrings {
-            if substring.trimmingCharacters(in: NSCharacterSet.whitespaces).isEmpty {
-                curHeight += fontSize
-            } else {
+            if !substring.trimmingCharacters(in: NSCharacterSet.whitespaces).isEmpty {
                 let label = SKLabelNode(fontNamed: self.fontName)
                 label.text = substring
                 label.fontColor = self.fontColor
                 label.fontSize = self.fontSize
                 label.position = self.position
                 label.horizontalAlignmentMode = .left
-                label.verticalAlignmentMode = self.verticalAlignmentMode
+                label.verticalAlignmentMode = .bottom
                 let whitespace = substring.prefix(while: { $0 == " " || $0 == "\t" })
                 let whitespaceOffset = (whitespace as NSString).size(withAttributes: [.font: self.font!]).width
+                let curHeight = (curStr as NSString).size(withAttributes: [.font: self.font!]).height
                 label.position = CGPoint(x: whitespaceOffset, y: -curHeight)
+                switch self.horizontalAlignmentMode {
+                case .left:
+                    break
+                case .center:
+                    label.position.x -= bounds.width / 2
+                case .right:
+                    label.position.x -= bounds.width
+                }
+                switch self.verticalAlignmentMode {
+                case .top:
+                    break
+                case .center:
+                    label.position.y += bounds.height / 2
+                case .bottom, .baseline:
+                    label.position.y += bounds.height
+                }
                 res.addChild(label)
                 labels.append(label)
-                curWidth = max(curWidth, label.frame.size.width)
-                curHeight += label.frame.size.height
             }
+            curStr += substring + "\n"
         }
         
-        for label in labels {
-            switch self.horizontalAlignmentMode {
-            case .left:
-                break
-            case .center:
-                label.position.x -= curWidth / 2
-            case .right:
-                label.position.x -= curWidth
-            }
-        }
-        
-        return (res, CGSize(width: curWidth, height: curHeight))
+        return res
     }
 }

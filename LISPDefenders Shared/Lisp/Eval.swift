@@ -27,7 +27,10 @@ extension SExpr {
 
             let head = contents.first!.eval(context: context)
             let args = contents.dropFirst()
-            return macroApp(head: head, args: args) ?? funcApp(head: head, args: args) ?? .list(contents)
+            return macroApp(head: head, args: args) ??
+                funcApp(head: head, args: args) ??
+                lambdaApp(head: head, args: args) ??
+                .list(contents)
         }
 
         func macroApp(head: SExpr, args: ArraySlice<SExpr>) -> SExpr? {
@@ -44,6 +47,46 @@ extension SExpr {
             }
 
             return headBind(args.map { $0.eval(context: context) })
+        }
+        
+        func lambdaApp(head: SExpr, args: ArraySlice<SExpr>) -> SExpr? {
+            switch head {
+            case .list(let headArgs):
+                guard headArgs.count == 3 else {
+                    return nil
+                }
+                switch (headArgs[0], headArgs[1], headArgs[2]) {
+                case (.atom(.symbol("λ")), let lamArgsExpr, let lamBody):
+                    let lamArgExprs = { switch lamArgsExpr {
+                    case .list(let lamArgExprs):
+                        return lamArgExprs
+                    default:
+                        fatalError("(λ ...): arguments not a list")
+                        }
+                    }() as [SExpr]
+                    let lamArgs = lamArgExprs.map { lamArgExpr in
+                        switch lamArgExpr {
+                        case .atom(.symbol(let lamArg)):
+                            return lamArg
+                        default:
+                            fatalError("(λ ...): argument not a symbol")
+                        }
+                    } as [String]
+                    guard lamArgExprs.count == args.count else {
+                        fatalError("(λ ...): wrong number of arguments")
+                    }
+                    let addedCtx = SContext(valBinds: Dictionary(uniqueKeysWithValues: Array.zipWith(
+                        lamArgs,
+                        Array(args),
+                        combiner: { ($0, $1) }
+                    )))
+                    return lamBody.eval(context: context + addedCtx)
+                default:
+                    return nil
+                }
+            default:
+                return nil
+            }
         }
 
         switch self {

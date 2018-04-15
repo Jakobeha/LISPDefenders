@@ -19,11 +19,7 @@ extension SToken {
                 tokens.append(Locd(
                     .atom(curAtom),
                     print: curAtom,
-                    location: Loc(
-                        line: location.line,
-                        column: location.column - curAtom.count,
-                        idx: location.idx - UInt(curAtom.count)
-                    )
+                    location: Loc(idx: location.idx - UInt(curAtom.count))
                 ))
             }
             curAtom = ""
@@ -31,7 +27,7 @@ extension SToken {
 
         for char in str {
             switch char {
-            case " ":
+            case " ", "\t":
                 endAtom()
                 tokens.append(Locd(.whitespace, print: String(char), location: location))
                 location.addColumn()

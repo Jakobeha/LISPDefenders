@@ -44,6 +44,11 @@ class InactiveLispWorldController {
         for projectile in projectiles {
             updateChild(projectile: projectile, deltaTime: deltaTime)
         }
+        for block in blocks {
+            for projectile in projectiles {
+                checkCollision(block: block, projectile: projectile)
+            }
+        }
     }
     
     private func updateChild(block: FallingLispNodeController, deltaTime: CGFloat) {
@@ -65,6 +70,33 @@ class InactiveLispWorldController {
         }
     }
     
+    private func checkCollision(block: LispController, projectile: ProjectileController) {
+        checkEntireCollision(block: block, projectile: projectile)
+        guard projectile.node.parent != nil else {
+            return //Removed projectile
+        }
+        checkChildCollisions(block: block, projectile: projectile)
+    }
+    
+    private func checkEntireCollision(block: LispController, projectile: ProjectileController) {
+        if block.isJustEmoji && block.frame.intersects(projectile.node.frame) {
+            handleEntireCollision(block: block, projectile: projectile)
+        }
+    }
+    
+    private func checkChildCollisions(block: LispController, projectile: ProjectileController) {
+        for child in block.children {
+            checkCollision(block: child, projectile: projectile)
+            guard projectile.node.parent != nil else {
+                return //Removed projectile
+            }
+        }
+    }
+    
+    private func handleEntireCollision(block: LispController, projectile: ProjectileController) {
+        block.expr = block.expr.set(value: .atom(.emoji(projectile.item)))
+        remove(projectile: projectile)
+    }
     
     func handleBlockHitBottom(_ block: FallingLispNodeController) {
         //TODO Apply the block's effect

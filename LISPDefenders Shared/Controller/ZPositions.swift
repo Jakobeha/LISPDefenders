@@ -10,6 +10,6 @@ import Foundation
 
 class ZPositions {
     static let projectile: CGFloat = 2
-    static let lisp: CGFloat = 1
-    static let cannon: CGFloat = 0
+    static let lisp: CGFloat = 0
+    static let cannon: CGFloat = 1
 }
