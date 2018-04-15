@@ -1,16 +1,15 @@
 
 (template 12
-(let [(x 📦)
-      (y 📦)] x))
+(let [(x 📦) (y 📦)] x))
 
 (template 9
 (if (> 📦 🍕)
    💣 (' 🎁)))
 
 (template 5
-(if (> 📦 🍩)
-  ((λ (x) (' x x)) 🎁)
-    (' 💣 💣 💣)))
+(if (or false 💣 (> 📦 🍩) false)
+  ((λ (x) (rest (' x x (' x)))) 🎁)
+    (' 💣 💣 nil nil nil nil nil  💣 💣)))
 
 (template 7
 (((λ (x) (λ (y)

@@ -20,6 +20,7 @@ class LispNodeController: LispController {
     }
     
     override var expr: DLocdSExpr { didSet {
+        super.expr = expr
         let nextNode = LispNodeController.newNode(expr: expr, posn: posn)
         if let parent = _node.parent {
             parent.addChild(nextNode)
@@ -29,6 +30,7 @@ class LispNodeController: LispController {
     } }
     
     override var posn: CGPoint { didSet {
+        super.posn = posn
         _node.position = posn
     } }
     

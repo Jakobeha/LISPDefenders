@@ -17,6 +17,15 @@ enum UnDLocdSExpr {
             return .list(contents.map { $0.deepValue })
         }
     }
+    
+    static func complete(_ reg: SExpr) -> UnDLocdSExpr {
+        switch reg {
+        case .atom(let atom):
+            return .atom(atom)
+        case .list(let contents):
+            return .list(contents.map(DLocdSExpr.complete))
+        }
+    }
 }
 
 typealias DLocdSExpr = DLocd<UnDLocdSExpr>
@@ -28,6 +37,10 @@ extension DLocd where T == UnDLocdSExpr {
 
     static func list(_ contents: [DLocdSExpr], print: String, absLoc: Loc, relLoc: Loc) -> DLocdSExpr {
         return DLocd(UnDLocdSExpr.list(contents), print: print, absLoc: absLoc, relLoc: relLoc)
+    }
+    
+    static func complete(_ reg: SExpr) -> DLocdSExpr {
+        return DLocd(UnDLocdSExpr.complete(reg), print: reg.print, absLoc: Loc.start, relLoc: Loc.start)
     }
     
     static func translatePrint(_ print: String, oldValue: UnDLocdSExpr, newValue: UnDLocdSExpr) -> String {

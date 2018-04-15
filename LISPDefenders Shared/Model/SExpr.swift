@@ -27,8 +27,8 @@ enum SExpr: Equatable {
         switch self {
         case .atom(let atom):
             return atom.isTruthy
-        case .list(_):
-            return false
+        case .list(let contents):
+            return !contents.isEmpty
         }
     }
 }

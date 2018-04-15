@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if os(iOS)
+    import CoreGraphics
+#endif
 
 class LispController {
     static let font: SKFont = SKFont(name: fontName, size: fontSize)!
@@ -55,12 +58,6 @@ class LispController {
         onSetExpr(expr)
     } }
     var posn: CGPoint { didSet {
-        /*if let children = _children {
-            let diff = posn - _anchorPosn!
-            for (child, childAnchorPosn) in Array.zipWith(children, _childrenAnchorPosns!, combiner: { ($0, $1) }) {
-                child.posn = childAnchorPosn + diff
-            }
-        }*/
         _children = nil
     } }
     private let onSetExpr: (DLocdSExpr) -> Void
@@ -69,18 +66,15 @@ class LispController {
     }
     private let prefix: String
     private var _size: CGSize
+    var isEvaluated: Bool
     
     var children: [LispController] {
         if _children == nil {
             _children = generateChildren()
-            _anchorPosn = posn
-            _childrenAnchorPosns = _children!.map { $0.posn }
         }
         return _children!
     }
     private var _children: [LispController]?
-    private var _anchorPosn: CGPoint?
-    private var _childrenAnchorPosns: [CGPoint]?
     
     var frame: CGRect {
         return CGRect(
@@ -110,12 +104,14 @@ class LispController {
         expr: DLocdSExpr,
         posn: CGPoint,
         onSetExpr: @escaping (DLocdSExpr) -> Void = { _ in },
-        prefix: String = ""
+        prefix: String = "",
+        isEvaluated: Bool = false
     ) {
         self.expr = expr
         self.posn = posn
         self.onSetExpr = onSetExpr
         self.prefix = prefix
+        self.isEvaluated = isEvaluated
         _size = LispController.boundsOf(expr: expr)
     }
     
@@ -143,7 +139,8 @@ class LispController {
                         newChildExprs[index] = newChild
                         self.expr = self.expr.set(value: .list(newChildExprs))
                     },
-                    prefix: prefixText
+                    prefix: prefixText,
+                    isEvaluated: isEvaluated
                 )
             }
         }

@@ -10,6 +10,7 @@ import SpriteKit
 
 class GameScene: SKScene {
     var cannon: CannonController?
+    var status: StatusController?
     var world : LispWorldController?
     var prevTime: TimeInterval?
     
@@ -21,14 +22,23 @@ class GameScene: SKScene {
         }
         
         // Set the scale mode to scale to fit the window
-        scene.scaleMode = .aspectFill
+        scene.scaleMode = .resizeFill
         
         return scene
     }
     
     func setUpScene() {
-        // Get label node from scene and store it for use later
-        world = LispWorldController(template: Template.parse(fileWithName: "Standard"), scene: self)
+        let statusNode = childNode(withName: "status")! as! SKLabelNode
+        status = StatusController(status: GameStatus.initial, node: statusNode, onSetStatus: { newStatus in
+            return self.world!.handle(newStatus: newStatus)
+        })
+        let bufferNode = childNode(withName: "buffer")!
+        world = LispWorldController(
+            status: status!,
+            template: Template.parse(fileWithName: "Standard"),
+            scene: self,
+            bufferNode: bufferNode
+        )
         let cannonNode = childNode(withName: "cannon")!
         cannon = CannonController(
             onFire: world!.add,
@@ -62,8 +72,8 @@ extension GameScene {
             return
         }
         
-        if event.allTouches == touches {
-            let touch = touches.any!
+        if event == nil || event!.allTouches == touches {
+            let touch = touches.first!
             cannon.isEnabled = true
             cannon.point(at: touch.location(in: self))
         } else {
@@ -78,7 +88,7 @@ extension GameScene {
         }
         
         if cannon.isEnabled {
-            let touch = touches.any!
+            let touch = touches.first!
             cannon.point(at: touch.location(in: cannon.baseNode))
         }
     }
@@ -89,7 +99,7 @@ extension GameScene {
         }
         
         if cannon.isEnabled {
-            let touch = touches.any!
+            let touch = touches.first!
             cannon.point(at: touch.location(in: cannon.baseNode))
             cannon.fire()
         }
@@ -100,7 +110,7 @@ extension GameScene {
             return
         }
         
-        let touch = touches.any!
+        let touch = touches.first!
         cannon.point(at: touch.location(in: cannon.baseNode))
     }
 }

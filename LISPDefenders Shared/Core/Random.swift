@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if os(iOS)
+    import CoreGraphics
+#endif
 
 class Random {
     static func within(min: CGFloat, max: CGFloat) -> CGFloat {

@@ -9,8 +9,8 @@
 import SpriteKit
 
 class FallingLispNodeController: LispNodeController {
-    static let velY: CGFloat = -128
-    static let velXDiff: CGFloat = 64
+    static let velY: CGFloat = -72
+    static let velXDiff: CGFloat = 48
     
     var velX: CGFloat
     

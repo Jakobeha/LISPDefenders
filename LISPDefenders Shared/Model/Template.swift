@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if os(iOS)
+    import CoreGraphics
+#endif
 
 struct Template {
     let items: [TemplateItem]

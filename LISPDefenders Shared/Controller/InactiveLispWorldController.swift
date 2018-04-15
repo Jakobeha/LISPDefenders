@@ -19,12 +19,26 @@ class InactiveLispWorldController {
     private var _blocks: [FallingLispNodeController]
     private var _projectiles: [ProjectileController]
 
-    var scene: SKNode
+    let status: StatusController
     
-    init(scene: SKNode) {
+    var isRunning: Bool { didSet {
+        if !isRunning {
+            removeFallingBlocks()
+        }
+    } }
+    var scene: SKNode
+    var bufferNode: SKNode { didSet {
+        bufferNode.zPosition = ZPositions.buffer
+    } }
+
+    init(status: StatusController, scene: SKNode, bufferNode: SKNode) {
         self._blocks = []
         self._projectiles = []
+        self.status = status
         self.scene = scene
+        self.bufferNode = bufferNode
+        self.isRunning = true
+        bufferNode.zPosition = ZPositions.buffer
     }
     
     func add(block: FallingLispNodeController) {
@@ -39,12 +53,20 @@ class InactiveLispWorldController {
     
     func update(deltaTime: CGFloat) {
         for block in blocks {
+            guard block.node.parent != nil else {
+                continue //Previous block update caused all blocks to be removed
+            }
+            
             updateChild(block: block, deltaTime: deltaTime)
         }
         for projectile in projectiles {
             updateChild(projectile: projectile, deltaTime: deltaTime)
         }
         for block in blocks {
+            guard !block.isEvaluated else {
+                continue
+            }
+            
             for projectile in projectiles {
                 checkCollision(block: block, projectile: projectile)
             }
@@ -54,9 +76,12 @@ class InactiveLispWorldController {
     private func updateChild(block: FallingLispNodeController, deltaTime: CGFloat) {
         block.update(deltaTime: deltaTime)
         
-        if block.node.frame.minY <= scene.bounds.minY {
-            //Moving out of screen Y - evaluate.
-            handleBlockHitBottom(block)
+        if block.node.frame.minY <= bufferNode.frame.maxY && !block.isEvaluated {
+            //Moved below buffer - evaluate.
+            handleBlockHitBuffer(block)
+        } else if block.node.frame.minY <= scene.bounds.minY {
+            //Moving out of screen Y - remove.
+            remove(block: block)
         }
     }
     
@@ -98,9 +123,12 @@ class InactiveLispWorldController {
         remove(projectile: projectile)
     }
     
-    func handleBlockHitBottom(_ block: FallingLispNodeController) {
-        //TODO Apply the block's effect
-        remove(block: block)
+    func handleBlockHitBuffer(_ block: FallingLispNodeController) {
+        let blockEvaled = block.expr.deepValue.eval(context: SContext.base)
+        status.apply(effects: blockEvaled.toEmojis!)
+        
+        block.isEvaluated = true
+        block.expr = DLocdSExpr.complete(blockEvaled)
     }
     
     private func remove(block: FallingLispNodeController) {
@@ -111,5 +139,24 @@ class InactiveLispWorldController {
     private func remove(projectile: ProjectileController) {
         _projectiles.remove(at: _projectiles.index(of: projectile)!)
         projectile.node.removeFromParent()
+    }
+    
+    private func removeFallingBlocks() {
+        var i = 0
+        while i < _blocks.count {
+            let block = _blocks[i]
+            if block.isEvaluated {
+                i += 1
+            } else {
+                _blocks.remove(at: i)
+                block.node.removeFromParent()
+            }
+        }
+    }
+    
+    func handle(newStatus: GameStatus) {
+        if newStatus.isGameOver {
+            isRunning = false
+        }
     }
 }

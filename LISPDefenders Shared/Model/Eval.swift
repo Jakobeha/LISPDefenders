@@ -27,28 +27,12 @@ extension SExpr {
 
             let head = contents.first!.eval(context: context)
             let args = contents.dropFirst()
-            return macroApp(head: head, args: args) ??
+            return lambdaApp(head: head, args: args) ??
+                macroApp(head: head, args: args) ??
                 funcApp(head: head, args: args) ??
-                lambdaApp(head: head, args: args) ??
-                .list(contents)
+                subApp(head: head, args: args)
         }
 
-        func macroApp(head: SExpr, args: ArraySlice<SExpr>) -> SExpr? {
-            guard let headBind = head.macroBind(context: context) else {
-                return nil
-            }
-
-            return headBind(Array(args), { $0.eval(context: context + $1) })
-        }
-
-        func funcApp(head: SExpr, args: ArraySlice<SExpr>) -> SExpr? {
-            guard let headBind = head.funcBind(context: context) else {
-                return nil
-            }
-
-            return headBind(args.map { $0.eval(context: context) })
-        }
-        
         func lambdaApp(head: SExpr, args: ArraySlice<SExpr>) -> SExpr? {
             switch head {
             case .list(let headArgs):
@@ -63,7 +47,7 @@ extension SExpr {
                     default:
                         fatalError("(λ ...): arguments not a list")
                         }
-                    }() as [SExpr]
+                        }() as [SExpr]
                     let lamArgs = lamArgExprs.map { lamArgExpr in
                         switch lamArgExpr {
                         case .atom(.symbol(let lamArg)):
@@ -71,7 +55,7 @@ extension SExpr {
                         default:
                             fatalError("(λ ...): argument not a symbol")
                         }
-                    } as [String]
+                        } as [String]
                     guard lamArgExprs.count == args.count else {
                         fatalError("(λ ...): wrong number of arguments")
                     }
@@ -89,6 +73,27 @@ extension SExpr {
             }
         }
 
+        
+        func macroApp(head: SExpr, args: ArraySlice<SExpr>) -> SExpr? {
+            guard let headBind = head.macroBind(context: context) else {
+                return nil
+            }
+
+            return headBind(Array(args), context, { $0.eval(context: $1) })
+        }
+
+        func funcApp(head: SExpr, args: ArraySlice<SExpr>) -> SExpr? {
+            guard let headBind = head.funcBind(context: context) else {
+                return nil
+            }
+
+            return headBind(args.map { $0.eval(context: context) })
+        }
+        
+        func subApp(head: SExpr, args: ArraySlice<SExpr>) -> SExpr {
+            return SExpr.list([head] + args.map { $0.eval(context: context) })
+        }
+        
         switch self {
         case .atom(let atom):
             return atom.eval(context: context)

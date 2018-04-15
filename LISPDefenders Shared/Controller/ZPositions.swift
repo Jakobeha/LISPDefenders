@@ -7,9 +7,14 @@
 //
 
 import Foundation
+#if os(iOS)
+    import CoreGraphics
+#endif
 
 class ZPositions {
-    static let projectile: CGFloat = 2
-    static let lisp: CGFloat = 0
-    static let cannon: CGFloat = 1
+    static let status: CGFloat = 0
+    static let buffer: CGFloat = 0
+    static let projectile: CGFloat = 3
+    static let lisp: CGFloat = 1
+    static let cannon: CGFloat = 2
 }

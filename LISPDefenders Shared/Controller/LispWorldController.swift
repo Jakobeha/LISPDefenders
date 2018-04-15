@@ -11,13 +11,25 @@ import SpriteKit
 class LispWorldController: InactiveLispWorldController {
     var spawner: LispSpawner!
     
-    init(template: Template, scene: SKNode) {
-        super.init(scene: scene)
-        spawner = LispSpawner(template: template, world: self)
+    init(status: StatusController, template: Template, scene: SKNode, bufferNode: SKNode) {
+        super.init(status: status, scene: scene, bufferNode: bufferNode)
+        spawner = LispSpawner(
+            template: template,
+            world: self,
+            spawnDelayDecay: LispSpawner.spawnDelayDecay(totalPoints: status.status.totalPoints)
+        )
     }
     
     override func update(deltaTime: CGFloat) {
-        spawner.update(deltaTime: deltaTime)
+        if isRunning {
+            spawner.update(deltaTime: deltaTime)
+        }
         super.update(deltaTime: deltaTime)
+    }
+    
+    override func handle(newStatus: GameStatus) {
+        super.handle(newStatus: newStatus)
+        
+        spawner?.spawnDelayDecay = LispSpawner.spawnDelayDecay(totalPoints: status.status.totalPoints)
     }
 }

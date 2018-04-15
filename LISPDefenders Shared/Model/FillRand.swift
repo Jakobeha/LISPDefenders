@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if os(iOS)
+    import CoreGraphics
+#endif
 
 extension DLocd where T == UnDLocdSExpr {
     func fillRands() -> DLocdSExpr {
