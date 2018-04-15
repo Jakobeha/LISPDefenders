@@ -24,7 +24,7 @@
 ((λ (x) 📦) 📦))
 
 (template 125 125
-((λ (x) 📦) x))
+((λ (x) x) 📦))
 
 (template -300 400
 ((λ (x y)
@@ -58,24 +58,12 @@
  (rest (rest (rest
    (cons 🎁 '(🍕 📦 📦))))))))
 
-(template -4800 5000
+(template -3200 2400
 ((λ (x y)
-  (if (> x 📦) first rest)
-  (' y 📦 💣 💣)) 🍩))
+  ((if (> x 📦) first rest)
+   (' y 📦 💣 💣))) 🍩 🎁))
 
-(template -9999 9999
-(if (> 22)
-  (((λ (X)
-     ((λ (p)
-        (X (λ (a) ((p p) a))))
-      (λ (p) (X (λ (arg) ((p p) a))))))
-    (λ (f)
-      (λ (a)
-        (if (< a 2) nil
-           (+ (f (- a 1)) (f (- a 2))))))) 8)
-  🍣 💣))
-
-(template -3200 1600
+(template -2400 2500
 ((λ (x y) (cond
       [(not (or 🎁 🎁)) 🎁]
    [(and 🎁 🎁 🎁) 💣] [🎁 🎁]

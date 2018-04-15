@@ -8,7 +8,6 @@ the result of the S-Expression, you could get points, or lose.
 If the S-Expression evaluates to a single emoji, the effect is:
 
 - 🍩- +10 points
-- 🍰 - +15 points
 - 🍕 - +15 points
 - 🌯 - +25 points
 - 🍣 - +45 points
