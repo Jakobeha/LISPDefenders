@@ -9,8 +9,8 @@
 import SpriteKit
 
 class LispSpawner {
-    static let minSpawnDelay: CGFloat = 3.5
-    static let maxSpawnDelay: CGFloat = 5
+    static let minSpawnDelay: CGFloat = 4
+    static let maxSpawnDelay: CGFloat = 6
     
     private static func spawn(_ expr: DLocdSExpr, in world: InactiveLispWorldController) {
         let spawnExpr = expr.fillRands()
@@ -22,7 +22,7 @@ class LispSpawner {
             ),
             y: world.scene.bounds.maxY + bounds.height
         )
-        world.addBlock(expr: spawnExpr, posn: posn)
+        world.add(block: FallingLispNodeController(expr: spawnExpr, posn: posn))
     }
     
     var template: Template

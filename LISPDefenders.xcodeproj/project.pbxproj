@@ -14,8 +14,6 @@
 		361B78F620828A5100E1106C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B78F520828A5100E1106C /* AppDelegate.swift */; };
 		361B78F820828A5100E1106C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B78F720828A5100E1106C /* GameViewController.swift */; };
 		361B78FB20828A5100E1106C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 361B78F920828A5100E1106C /* Main.storyboard */; };
-		361B78FD20828A5100E1106C /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 361B78D920828A5100E1106C /* Actions.sks */; };
-		361B78FE20828A5100E1106C /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 361B78D920828A5100E1106C /* Actions.sks */; };
 		361B78FF20828A5100E1106C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 361B78DA20828A5100E1106C /* GameScene.sks */; };
 		361B790020828A5100E1106C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 361B78DA20828A5100E1106C /* GameScene.sks */; };
 		361B790120828A5100E1106C /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B78DB20828A5100E1106C /* GameScene.swift */; };
@@ -71,6 +69,16 @@
 		36B57D1E2082EDA800E957C8 /* SKLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B57D1C2082EDA700E957C8 /* SKLabelNode.swift */; };
 		36B57D202082F81700E957C8 /* FillRand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B57D1F2082F81700E957C8 /* FillRand.swift */; };
 		36B57D212082F81700E957C8 /* FillRand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B57D1F2082F81700E957C8 /* FillRand.swift */; };
+		36B57D2320830DF200E957C8 /* CannonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B57D2220830DF200E957C8 /* CannonController.swift */; };
+		36B57D2420830DF200E957C8 /* CannonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B57D2220830DF200E957C8 /* CannonController.swift */; };
+		36B57D2A208319BE00E957C8 /* ProjectileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B57D29208319BE00E957C8 /* ProjectileController.swift */; };
+		36B57D2B208319BE00E957C8 /* ProjectileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B57D29208319BE00E957C8 /* ProjectileController.swift */; };
+		36B57D2D20831B9800E957C8 /* ZPositions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B57D2C20831B9800E957C8 /* ZPositions.swift */; };
+		36B57D2E20831B9800E957C8 /* ZPositions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B57D2C20831B9800E957C8 /* ZPositions.swift */; };
+		36B57D3520831FAA00E957C8 /* CannonBase.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B57D3120831FAA00E957C8 /* CannonBase.png */; };
+		36B57D3620831FAA00E957C8 /* CannonBase.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B57D3120831FAA00E957C8 /* CannonBase.png */; };
+		36B57D3920831FAA00E957C8 /* CannonHead.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B57D3320831FAA00E957C8 /* CannonHead.png */; };
+		36B57D3A20831FAA00E957C8 /* CannonHead.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B57D3320831FAA00E957C8 /* CannonHead.png */; };
 		60372106C6E88D1366BD47A6 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60372B8CD93209C8C12350B6 /* Dictionary.swift */; };
 		60372118DE84985ABE114119 /* SEmojiEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603729D6A55DF834174FFFCE /* SEmojiEffect.swift */; };
 		6037217D3BD6458D42954EC9 /* Eval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6037269444502267E7C57CAB /* Eval.swift */; };
@@ -104,7 +112,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		361B78D920828A5100E1106C /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		361B78DA20828A5100E1106C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		361B78DB20828A5100E1106C /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		361B78DC20828A5100E1106C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -146,6 +153,11 @@
 		36B57D192082E86D00E957C8 /* SKNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKNode.swift; sourceTree = "<group>"; };
 		36B57D1C2082EDA700E957C8 /* SKLabelNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKLabelNode.swift; sourceTree = "<group>"; };
 		36B57D1F2082F81700E957C8 /* FillRand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillRand.swift; sourceTree = "<group>"; };
+		36B57D2220830DF200E957C8 /* CannonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CannonController.swift; sourceTree = "<group>"; };
+		36B57D29208319BE00E957C8 /* ProjectileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectileController.swift; sourceTree = "<group>"; };
+		36B57D2C20831B9800E957C8 /* ZPositions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZPositions.swift; sourceTree = "<group>"; };
+		36B57D3120831FAA00E957C8 /* CannonBase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CannonBase.png; sourceTree = "<group>"; };
+		36B57D3320831FAA00E957C8 /* CannonHead.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CannonHead.png; sourceTree = "<group>"; };
 		6037212A30FC8CA6576EE522 /* SContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SContext.swift; sourceTree = "<group>"; };
 		6037269444502267E7C57CAB /* Eval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Eval.swift; sourceTree = "<group>"; };
 		60372705307151FB8A439768 /* SAtom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAtom.swift; sourceTree = "<group>"; };
@@ -201,9 +213,9 @@
 				36B57CE52082C4EA00E957C8 /* Controller */,
 				361B790D20828B2600E1106C /* Lisp */,
 				603722533C3F91F804C3D48E /* Core */,
-				361B78D920828A5100E1106C /* Actions.sks */,
 				361B78DA20828A5100E1106C /* GameScene.sks */,
 				361B78DB20828A5100E1106C /* GameScene.swift */,
+				36B57D3020831FAA00E957C8 /* Textures */,
 				361B78DC20828A5100E1106C /* Assets.xcassets */,
 			);
 			path = "LISPDefenders Shared";
@@ -287,13 +299,25 @@
 		36B57CE52082C4EA00E957C8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				36B57D2220830DF200E957C8 /* CannonController.swift */,
 				36B57D042082D20400E957C8 /* LispSpawner.swift */,
 				36B57CE62082C60500E957C8 /* LispNodeController.swift */,
 				36B57D012082D02900E957C8 /* FallingLispNodeController.swift */,
 				36B57D0D2082D62000E957C8 /* InactiveLispWorldController.swift */,
 				36B57D162082E3D400E957C8 /* LispWorldController.swift */,
+				36B57D29208319BE00E957C8 /* ProjectileController.swift */,
+				36B57D2C20831B9800E957C8 /* ZPositions.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		36B57D3020831FAA00E957C8 /* Textures */ = {
+			isa = PBXGroup;
+			children = (
+				36B57D3120831FAA00E957C8 /* CannonBase.png */,
+				36B57D3320831FAA00E957C8 /* CannonHead.png */,
+			);
+			path = Textures;
 			sourceTree = "<group>";
 		};
 		603722533C3F91F804C3D48E /* Core */ = {
@@ -418,10 +442,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36B57D3920831FAA00E957C8 /* CannonHead.png in Resources */,
 				361B791420828C3000E1106C /* Standard.lisp in Resources */,
 				361B78FF20828A5100E1106C /* GameScene.sks in Resources */,
 				361B78EA20828A5100E1106C /* Main.storyboard in Resources */,
-				361B78FD20828A5100E1106C /* Actions.sks in Resources */,
+				36B57D3520831FAA00E957C8 /* CannonBase.png in Resources */,
 				361B78ED20828A5100E1106C /* LaunchScreen.storyboard in Resources */,
 				361B790320828A5100E1106C /* Assets.xcassets in Resources */,
 			);
@@ -432,10 +457,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				361B78FB20828A5100E1106C /* Main.storyboard in Resources */,
+				36B57D3A20831FAA00E957C8 /* CannonHead.png in Resources */,
 				361B790020828A5100E1106C /* GameScene.sks in Resources */,
 				361B790420828A5100E1106C /* Assets.xcassets in Resources */,
 				361B791520828C3000E1106C /* Standard.lisp in Resources */,
-				361B78FE20828A5100E1106C /* Actions.sks in Resources */,
+				36B57D3620831FAA00E957C8 /* CannonBase.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,9 +493,12 @@
 				361B791D208291FC00E1106C /* Locd.swift in Sources */,
 				361B790120828A5100E1106C /* GameScene.swift in Sources */,
 				36B57D052082D20400E957C8 /* LispSpawner.swift in Sources */,
+				36B57D2320830DF200E957C8 /* CannonController.swift in Sources */,
 				36B57D1D2082EDA800E957C8 /* SKLabelNode.swift in Sources */,
+				36B57D2A208319BE00E957C8 /* ProjectileController.swift in Sources */,
 				36B57CF62082C75000E957C8 /* CGRect.swift in Sources */,
 				361B78E720828A5100E1106C /* GameViewController.swift in Sources */,
+				36B57D2D20831B9800E957C8 /* ZPositions.swift in Sources */,
 				361B791120828B8700E1106C /* SToken.swift in Sources */,
 				36B57D0E2082D62000E957C8 /* InactiveLispWorldController.swift in Sources */,
 				361B78E520828A5100E1106C /* AppDelegate.swift in Sources */,
@@ -510,9 +539,12 @@
 				361B79182082918300E1106C /* Parse.swift in Sources */,
 				361B79212082921C00E1106C /* Loc.swift in Sources */,
 				36B57D062082D20400E957C8 /* LispSpawner.swift in Sources */,
+				36B57D2420830DF200E957C8 /* CannonController.swift in Sources */,
 				36B57D1E2082EDA800E957C8 /* SKLabelNode.swift in Sources */,
+				36B57D2B208319BE00E957C8 /* ProjectileController.swift in Sources */,
 				36B57CF72082C75000E957C8 /* CGRect.swift in Sources */,
 				361B791E208291FC00E1106C /* Locd.swift in Sources */,
+				36B57D2E20831B9800E957C8 /* ZPositions.swift in Sources */,
 				361B78F820828A5100E1106C /* GameViewController.swift in Sources */,
 				36B57D0F2082D62000E957C8 /* InactiveLispWorldController.swift in Sources */,
 				361B791B2082918900E1106C /* Lex.swift in Sources */,

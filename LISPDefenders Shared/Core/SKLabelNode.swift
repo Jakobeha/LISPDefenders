@@ -43,20 +43,24 @@ extension SKLabelNode {
         var curWidth = 0 as CGFloat
         var curHeight = 0 as CGFloat
         for substring in substrings {
-            let label = SKLabelNode(fontNamed: self.fontName)
-            label.text = substring
-            label.fontColor = self.fontColor
-            label.fontSize = self.fontSize
-            label.position = self.position
-            label.horizontalAlignmentMode = .left
-            label.verticalAlignmentMode = self.verticalAlignmentMode
-            let whitespace = substring.prefix(while: { $0 == " " || $0 == "\t" })
-            let whitespaceOffset = (whitespace as NSString).size(withAttributes: [.font: self.font!]).width
-            label.position = CGPoint(x: whitespaceOffset, y: -curHeight)
-            res.addChild(label)
-            labels.append(label)
-            curWidth = max(curWidth, label.frame.size.width)
-            curHeight += label.frame.size.height
+            if substring.trimmingCharacters(in: NSCharacterSet.whitespaces).isEmpty {
+                curHeight += fontSize
+            } else {
+                let label = SKLabelNode(fontNamed: self.fontName)
+                label.text = substring
+                label.fontColor = self.fontColor
+                label.fontSize = self.fontSize
+                label.position = self.position
+                label.horizontalAlignmentMode = .left
+                label.verticalAlignmentMode = self.verticalAlignmentMode
+                let whitespace = substring.prefix(while: { $0 == " " || $0 == "\t" })
+                let whitespaceOffset = (whitespace as NSString).size(withAttributes: [.font: self.font!]).width
+                label.position = CGPoint(x: whitespaceOffset, y: -curHeight)
+                res.addChild(label)
+                labels.append(label)
+                curWidth = max(curWidth, label.frame.size.width)
+                curHeight += label.frame.size.height
+            }
         }
         
         for label in labels {

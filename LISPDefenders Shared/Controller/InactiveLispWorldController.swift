@@ -13,36 +13,71 @@ class InactiveLispWorldController {
     var blocks: [FallingLispNodeController] {
         return _blocks
     }
+    var projectiles: [ProjectileController] {
+        return _projectiles
+    }
     private var _blocks: [FallingLispNodeController]
-    
+    private var _projectiles: [ProjectileController]
+
     var scene: SKNode
     
     init(scene: SKNode) {
         self._blocks = []
+        self._projectiles = []
         self.scene = scene
     }
     
-    func addBlock(expr: DLocdSExpr, posn: CGPoint) {
-        var block = nil as FallingLispNodeController!
-        block = FallingLispNodeController(expr: expr, posn: posn, onHitBottom: { self.handleBlockHitBottom(block!) })
-        _blocks.append(block!)
-        scene.addChild(block!.node)
+    func add(block: FallingLispNodeController) {
+        _blocks.append(block)
+        scene.addChild(block.node)
     }
+    
+    func add(projectile: ProjectileController) {
+        _projectiles.append(projectile)
+        scene.addChild(projectile.node)
+    }
+    
+    func update(deltaTime: CGFloat) {
+        for block in blocks {
+            updateChild(block: block, deltaTime: deltaTime)
+        }
+        for projectile in projectiles {
+            updateChild(projectile: projectile, deltaTime: deltaTime)
+        }
+    }
+    
+    private func updateChild(block: FallingLispNodeController, deltaTime: CGFloat) {
+        block.update(deltaTime: deltaTime)
+        
+        if block.node.frame.minY <= scene.bounds.minY {
+            //Moving out of screen Y - evaluate.
+            handleBlockHitBottom(block)
+        }
+    }
+    
+    private func updateChild(projectile: ProjectileController, deltaTime: CGFloat) {
+        projectile.update(deltaTime: deltaTime)
+        
+        if projectile.node.frame.maxY <= scene.bounds.minY ||
+            projectile.node.frame.minY >= scene.bounds.maxY {
+            //Moved out of screen Y - delete.
+            remove(projectile: projectile)
+        }
+    }
+    
     
     func handleBlockHitBottom(_ block: FallingLispNodeController) {
         //TODO Apply the block's effect
-        removeBlock(block)
+        remove(block: block)
     }
     
-    private func removeBlock(_ block: FallingLispNodeController) {
+    private func remove(block: FallingLispNodeController) {
         _blocks.remove(at: _blocks.index(of: block)!)
         block.node.removeFromParent()
     }
     
-    
-    func update(deltaTime: CGFloat) {
-        for block in blocks {
-            block.update(deltaTime: deltaTime)
-        }
+    private func remove(projectile: ProjectileController) {
+        _projectiles.remove(at: _projectiles.index(of: projectile)!)
+        projectile.node.removeFromParent()
     }
 }

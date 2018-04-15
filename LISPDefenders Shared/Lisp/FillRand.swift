@@ -38,7 +38,7 @@ extension SAtom {
         case .number(_):
             return self
         case .emoji(let emoji):
-            return .emoji(emoji.fillRands())
+            return .emoji(emoji.fillIfRand())
         }
     }
 }
@@ -55,7 +55,7 @@ extension SEmoji {
     static let neutralWeightsAndItems: [(CGFloat, SEmoji)] = SEmoji.noBombWeightsAndItems + [(100, .bomb)]
     static let posWeightsAndItems: [(CGFloat, SEmoji)] = SEmoji.noBombWeightsAndItems + [(0, .bomb)]
 
-    func fillRands() -> SEmoji {
+    func fillIfRand() -> SEmoji {
         switch self {
         case .neutralRand:
             return Random.choice(SEmoji.neutralWeightsAndItems)

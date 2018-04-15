@@ -21,6 +21,7 @@ class LispNodeController {
         let interNode = SKLabelNode(text: expr.print)
         interNode.fontName = LispNodeController.fontName
         interNode.fontSize = LispNodeController.fontSize
+        interNode.zPosition = ZPositions.lisp
         return interNode.multilined()
     }
     

@@ -20,7 +20,7 @@ struct Loc: Equatable {
     }
 
     var line: UInt
-    var column: UInt
+    var column: Int
     var idx: UInt
     
     mutating func addLine() {

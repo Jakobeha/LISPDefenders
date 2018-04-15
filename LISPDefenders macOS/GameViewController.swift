@@ -11,14 +11,15 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: NSViewController {
-
+    private var skView: SKView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let scene = GameScene.newGameScene()
         
         // Present the scene
-        let skView = self.view as! SKView
+        skView = self.view as! SKView
         skView.presentScene(scene)
         
         skView.ignoresSiblingOrder = true
@@ -26,6 +27,12 @@ class GameViewController: NSViewController {
         skView.showsFPS = true
         skView.showsNodeCount = true
     }
-
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        
+        skView.window!.acceptsMouseMovedEvents = true;
+        skView.window!.makeFirstResponder(skView.scene)
+    }
 }
 

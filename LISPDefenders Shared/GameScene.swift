@@ -9,7 +9,7 @@
 import SpriteKit
 
 class GameScene: SKScene {
-    var label : SKLabelNode?
+    var cannon: CannonController?
     var world : LispWorldController?
     var prevTime: TimeInterval?
     
@@ -28,13 +28,15 @@ class GameScene: SKScene {
     
     func setUpScene() {
         // Get label node from scene and store it for use later
-        label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
-        
         world = LispWorldController(template: Template.parse(fileWithName: "Standard"), scene: self)
+        let cannonNode = childNode(withName: "cannon")!
+        cannon = CannonController(
+            onFire: world!.add,
+            cannonNode: cannonNode,
+            baseNode: cannonNode.childNode(withName: "base")!,
+            headNode: cannonNode.childNode(withName: "head")! as! SKSpriteNode,
+            itemNode: cannonNode.childNode(withName: "item")! as! SKLabelNode
+        )
     }
     
     override func didMove(to view: SKView) {
@@ -52,60 +54,84 @@ class GameScene: SKScene {
     }
 }
 
-/*#if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS)
 // Touch-based event handling
 extension GameScene {
-
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+        guard let cannon = cannon else {
+            return
         }
         
-        for t in touches {
-            self.makeSpinny(at: t.location(in: self), color: SKColor.green)
+        if event.allTouches == touches {
+            let touch = touches.any!
+            cannon.isEnabled = true
+            cannon.point(at: touch.location(in: self))
+        } else {
+            //Multi-touch
+            cannon.isEnabled = false
         }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
-            self.makeSpinny(at: t.location(in: self), color: SKColor.blue)
+        guard let cannon = cannon else {
+            return
+        }
+        
+        if cannon.isEnabled {
+            let touch = touches.any!
+            cannon.point(at: touch.location(in: cannon.baseNode))
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
-            self.makeSpinny(at: t.location(in: self), color: SKColor.red)
+        guard let cannon = cannon else {
+            return
+        }
+        
+        if cannon.isEnabled {
+            let touch = touches.any!
+            cannon.point(at: touch.location(in: cannon.baseNode))
+            cannon.fire()
         }
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
-            self.makeSpinny(at: t.location(in: self), color: SKColor.red)
+        guard let cannon = cannon else {
+            return
         }
+        
+        let touch = touches.any!
+        cannon.point(at: touch.location(in: cannon.baseNode))
     }
-    
-   
 }
 #endif
 
 #if os(OSX)
 // Mouse-based event handling
 extension GameScene {
-
     override func mouseDown(with event: NSEvent) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+        guard let cannon = cannon else {
+            return
         }
-        self.makeSpinny(at: event.location(in: self), color: SKColor.green)
+        
+        cannon.point(at: event.location(in: cannon.baseNode))
     }
     
-    override func mouseDragged(with event: NSEvent) {
-        self.makeSpinny(at: event.location(in: self), color: SKColor.blue)
+    override func mouseMoved(with event: NSEvent) {
+        guard let cannon = cannon else {
+            return
+        }
+        
+        cannon.point(at: event.location(in: cannon.baseNode))
     }
     
     override func mouseUp(with event: NSEvent) {
-        self.makeSpinny(at: event.location(in: self), color: SKColor.red)
+        guard let cannon = cannon else {
+            return
+        }
+        
+        cannon.point(at: event.location(in: cannon.baseNode))
+        cannon.fire()
     }
-
-}*/
-
+}
+#endif

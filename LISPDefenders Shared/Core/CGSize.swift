@@ -38,4 +38,16 @@ extension CGSize {
             height: a.height / scale.height
         )
     }
+    
+    var direction: CGFloat {
+        return atan2(-width, height)
+    }
+    
+    init(point: CGPoint) {
+        self.init(width: point.x, height: point.y)
+    }
+    
+    init(magnitude: CGFloat, direction: CGFloat) {
+        self.init(width: -sin(direction) * magnitude, height: cos(direction) * magnitude)
+    }
 }

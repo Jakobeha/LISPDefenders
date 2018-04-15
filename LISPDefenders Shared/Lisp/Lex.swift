@@ -21,7 +21,7 @@ extension SToken {
                     print: curAtom,
                     location: Loc(
                         line: location.line,
-                        column: location.column - UInt(curAtom.count),
+                        column: location.column - curAtom.count,
                         idx: location.idx - UInt(curAtom.count)
                     )
                 ))

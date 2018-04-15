@@ -13,15 +13,13 @@ class FallingLispNodeController: LispNodeController {
     static let velXDiff: CGFloat = 64
     
     var velX: CGFloat
-    private let onHitBottom: () -> Void
     
     var vel: CGSize {
         return CGSize(width: velX, height: FallingLispNodeController.velY)
     }
     
-    init(expr: DLocdSExpr, posn: CGPoint, onHitBottom: @escaping () -> Void) {
+    override init(expr: DLocdSExpr, posn: CGPoint) {
         self.velX = Random.within(min: -FallingLispNodeController.velXDiff, max: FallingLispNodeController.velXDiff)
-        self.onHitBottom = onHitBottom
         super.init(expr: expr, posn: posn)
     }
     
@@ -34,11 +32,6 @@ class FallingLispNodeController: LispNodeController {
             (frame.maxX >= node.parent!.bounds.maxX && velX > 0) {
             //Moving out of screen X - "bounce"
             velX = -velX
-        }
-        
-        if (frame.minY <= node.parent!.bounds.minY) {
-            //Moving out of screen Y - callback.
-            onHitBottom()
         }
     }
 }
