@@ -48,15 +48,22 @@
   📦 📦))
 
 (template -1600 1600
-((λ (x y)
+((λ ()
  (first (rest (rest
-   (cons 🎁 '(🍕 📦 📦))))))))
+   (cons 🎁 (' 🍕 📦 📦))))))))
 
+(template -1800 1800
+((λ ()
+ (rest (rest (cons 🎁
+  (first (' (' 🍕 📦) 📦))))))))
+
+(template -77 77
+(* 7 (* 7 (* 7 🍩)))
 
 (template -3200 1600
-((λ (x y)
+((λ ()
  (rest (rest (rest
-   (cons 🎁 '(🍕 📦 📦))))))))
+   (cons 🎁 (' 🍕 📦 📦))))))))
 
 (template -3200 2400
 ((λ (x y)
