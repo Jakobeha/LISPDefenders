@@ -144,7 +144,7 @@
 		36B57D132082E1AF00E957C8 /* SKFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKFont.swift; sourceTree = "<group>"; };
 		36B57D162082E3D400E957C8 /* LispWorldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LispWorldController.swift; sourceTree = "<group>"; };
 		36B57D192082E86D00E957C8 /* SKNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKNode.swift; sourceTree = "<group>"; };
-		36B57D1C2082EDA700E957C8 /* SKLabelNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKLabelNode.swift; path = ../../../../../Downloads/SKLabelNode.swift; sourceTree = "<group>"; };
+		36B57D1C2082EDA700E957C8 /* SKLabelNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKLabelNode.swift; sourceTree = "<group>"; };
 		36B57D1F2082F81700E957C8 /* FillRand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillRand.swift; sourceTree = "<group>"; };
 		6037212A30FC8CA6576EE522 /* SContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SContext.swift; sourceTree = "<group>"; };
 		6037269444502267E7C57CAB /* Eval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Eval.swift; sourceTree = "<group>"; };
