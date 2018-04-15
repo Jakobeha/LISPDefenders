@@ -22,12 +22,12 @@ extension TemplateItem {
     static func parse(_ sexpr: DLocdSExpr) -> TemplateItem {
         switch sexpr.value {
         case .list(let args):
-            guard args.count == 3 else {
+            guard args.count == 4 else {
                 fatalError("template: bad shape")
             }
-            switch (args[0].deepValue, args[1].deepValue, args[2]) {
-            case (.atom(.symbol("template")), .atom(.number(let frequency)), let expr):
-                return TemplateItem(expr: expr, frequency: frequency)
+            switch (args[0].deepValue, args[1].deepValue, args[2].deepValue, args[3]) {
+            case (.atom(.symbol("template")), .atom(.number(let unscaledFreq)), .atom(.number(let scaledFreq)), let expr):
+                return TemplateItem(expr: expr, unscaledFrequency: unscaledFreq, scaledFrequency: scaledFreq)
             default:
                 fatalError("template: bad shape")
             }

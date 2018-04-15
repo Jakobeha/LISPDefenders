@@ -11,8 +11,12 @@ import SpriteKit
 class ProjectileController {
     static let speed: CGFloat = 1024
     static let font: SKFont = SKFont(name: fontName, size: fontSize)!
+    #if os(macOS)
+    static let fontName: String = "Monaco"
+    #else
     static let fontName: String = "Menlo"
-    static let fontSize: CGFloat = 48
+    #endif
+        static let fontSize: CGFloat = 48
     
     private static func newNode(item: SEmoji, posn: CGPoint) -> SKLabelNode {
         let res = SKLabelNode(text: item.print)

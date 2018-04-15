@@ -16,7 +16,7 @@ class LispWorldController: InactiveLispWorldController {
         spawner = LispSpawner(
             template: template,
             world: self,
-            spawnDelayDecay: LispSpawner.spawnDelayDecay(totalPoints: status.status.totalPoints)
+            totalPoints: status.status.totalPoints
         )
     }
     
@@ -30,6 +30,6 @@ class LispWorldController: InactiveLispWorldController {
     override func handle(newStatus: GameStatus) {
         super.handle(newStatus: newStatus)
         
-        spawner?.spawnDelayDecay = LispSpawner.spawnDelayDecay(totalPoints: status.status.totalPoints)
+        spawner?.totalPoints = status.status.totalPoints
     }
 }

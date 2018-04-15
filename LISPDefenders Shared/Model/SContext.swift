@@ -137,17 +137,74 @@ struct SContext {
                     fatalError("rest: bad arguments")
                 }
             },
+            "+" : { args in
+                guard args.count == 2 else {
+                    fatalError("+: bad arguments")
+                }
+                switch (args[0], args[1]) {
+                case (.atom(.number(let xInt)), .atom(.number(let yInt))):
+                    return SExpr.atom(.number(xInt + yInt))
+                case (let x, let y):
+                    return SExpr.list([x, y])
+                }
+            },
+            "-" : { args in
+                guard args.count == 2 else {
+                    fatalError("-: bad arguments")
+                }
+                switch (args[0], args[1]) {
+                case (.atom(.number(let xInt)), .atom(.number(let yInt))):
+                    return SExpr.atom(.number(xInt - yInt))
+                case (let x, let y):
+                    return SExpr.list([x, y])
+                }
+            },
             "*" : { args in
                 guard args.count == 2 else {
                     fatalError("*: bad arguments")
                 }
                 switch (args[0], args[1]) {
+                case (.atom(.number(let xInt)), .atom(.number(let yInt))):
+                    return SExpr.atom(.number(xInt * yInt))
                 case (.atom(.number(let xInt)), let y):
                     return SExpr.list(Array(repeating: y, count: xInt))
                 case (let x, .atom(.number(let yInt))):
                     return SExpr.list(Array(repeating: x, count: yInt))
                 default:
                     fatalError("*: bad arguments")
+                }
+            },
+            "min" : { args in
+                guard args.count == 2 else {
+                    fatalError("min: bad arguments")
+                }
+                switch (args[0], args[1]) {
+                case (.atom(.number(let xInt)), .atom(.number(let yInt))):
+                    return SExpr.atom(.number(min(xInt, yInt)))
+                case (.atom(.emoji(let xEmoji)), .atom(.emoji(let yEmoji))):
+                    if xEmoji.effect < yEmoji.effect {
+                        return SExpr.atom(.emoji(xEmoji))
+                    } else {
+                        return SExpr.atom(.emoji(yEmoji))
+                    }
+                case (let x, let y):
+                    return SExpr.list([x, y])
+                }
+            },
+            "max" : { args in
+                guard args.count == 2 else {
+                    fatalError("max: bad arguments")
+                }
+                switch (args[0], args[1]) {
+                case (.atom(.number(let xInt)), .atom(.number(let yInt))):
+                    return SExpr.atom(.number(max(xInt, yInt)))
+                case (.atom(.emoji(let xEmoji)), .atom(.emoji(let yEmoji))):
+                    if xEmoji.effect > yEmoji.effect {
+                        return SExpr.atom(.emoji(xEmoji))
+                    } else {
+                        return SExpr.atom(.emoji(yEmoji))
+                    }                case (let x, let y):
+                    return SExpr.list([x, y])
                 }
             },
             "and" : { args in
@@ -183,6 +240,8 @@ struct SContext {
                 switch (args[0], args[1]) {
                 case (.atom(.emoji(let xEmoji)), .atom(.emoji(let yEmoji))):
                     return SExpr(xEmoji.effect > yEmoji.effect)
+                case (.atom(.number(let xInt)), .atom(.number(let yInt))):
+                    return SExpr(xInt > yInt)
                 default:
                     fatalError(">: bad arguments")
                 }
@@ -194,6 +253,8 @@ struct SContext {
                 switch (args[0], args[1]) {
                 case (.atom(.emoji(let xEmoji)), .atom(.emoji(let yEmoji))):
                     return SExpr(xEmoji.effect < yEmoji.effect)
+                case (.atom(.number(let xInt)), .atom(.number(let yInt))):
+                    return SExpr(xInt < yInt)
                 default:
                     fatalError("<: bad arguments")
                 }
@@ -205,6 +266,8 @@ struct SContext {
                 switch (args[0], args[1]) {
                 case (.atom(.emoji(let xEmoji)), .atom(.emoji(let yEmoji))):
                     return SExpr(xEmoji.effect >= yEmoji.effect)
+                case (.atom(.number(let xInt)), .atom(.number(let yInt))):
+                    return SExpr(xInt >= yInt)
                 default:
                     fatalError(">=: bad arguments")
                 }
@@ -216,6 +279,8 @@ struct SContext {
                 switch (args[0], args[1]) {
                 case (.atom(.emoji(let xEmoji)), .atom(.emoji(let yEmoji))):
                     return SExpr(xEmoji.effect <= yEmoji.effect)
+                case (.atom(.number(let xInt)), .atom(.number(let yInt))):
+                    return SExpr(xInt <= yInt)
                 default:
                     fatalError("<=: bad arguments")
                 }
@@ -224,12 +289,7 @@ struct SContext {
                 guard args.count == 2 else {
                     fatalError("=: bad arguments")
                 }
-                switch (args[0], args[1]) {
-                case (.atom(.emoji(let xEmoji)), .atom(.emoji(let yEmoji))):
-                    return SExpr(xEmoji.effect == yEmoji.effect)
-                default:
-                    fatalError("=: bad arguments")
-                }
+                return SExpr(args[0] == args[1])
             }
         ]
     )

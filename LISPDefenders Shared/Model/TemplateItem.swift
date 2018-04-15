@@ -7,8 +7,16 @@
 //
 
 import Foundation
+#if os(iOS)
+    import CoreGraphics
+#endif
 
 struct TemplateItem {
     let expr: DLocdSExpr
-    let frequency: Int
+    let unscaledFrequency: Int
+    let scaledFrequency: Int
+    
+    func frequency(difficultyScale: CGFloat) -> CGFloat {
+        return max(0, CGFloat(unscaledFrequency) + (CGFloat(scaledFrequency) * difficultyScale))
+    }
 }

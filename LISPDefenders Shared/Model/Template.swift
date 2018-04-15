@@ -14,7 +14,7 @@ import Foundation
 struct Template {
     let items: [TemplateItem]
     
-    func getNextExpr() -> DLocdSExpr {
-        return Random.choice(items.map { item in (CGFloat(item.frequency), item.expr) })
+    func getNextExpr(difficultyScale: CGFloat) -> DLocdSExpr {
+        return Random.choice(items.map { item in (item.frequency(difficultyScale: difficultyScale), item.expr) })
     }
 }

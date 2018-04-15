@@ -13,7 +13,11 @@ import Foundation
 
 class LispController {
     static let font: SKFont = SKFont(name: fontName, size: fontSize)!
+    #if os(macOS)
+    static let fontName: String = "Monaco"
+    #else
     static let fontName: String = "Menlo"
+    #endif
     static let fontSize: CGFloat = 48
     
     static func boundsOf(expr: DLocdSExpr) -> CGSize {
