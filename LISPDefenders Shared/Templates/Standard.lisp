@@ -58,17 +58,27 @@
   (first (' (' 🍕 📦) 📦))))))))
 
 (template -77 77
-(* 7 (* 7 (* 7 🍩)))
+(* 7 (* 7 (* 7 🍩))))
 
 (template -3200 1600
 ((λ ()
  (rest (rest (rest
    (cons 🎁 (' 🍕 📦 📦))))))))
 
-(template -3200 2400
+(template -2800 2000
 ((λ (x y)
   ((if (> x 📦) first rest)
    (' y 📦 💣 💣))) 🍩 🎁))
+
+(template -2800 2000
+((λ (x y)
+  ((if (> x 📦) min max)
+   x y)) 📦 💣))
+
+(template -2800 2000
+((λ (x y)
+   ((if (> x 📦) first rest)
+    (' y 📦 💣 💣))) 🍩 🎁))
 
 (template -2400 2500
 ((λ (x y) (cond
@@ -81,10 +91,49 @@
   ((λ (x) (rest (' x x (' x)))) 🎁)
     (' 💣 💣 nil nil nil nil nil  💣 💣)))
 
+
 (template -1200 800
-(if (and false 💣 (> 📦 🍩) false)
+(if (or false 💣 (>= 📦 🍩) false)
+  ((λ (x) (rest (' x x (' x)))) 🎁)
+     (' 💣 💣 nil nil nil nil nil  💣 💣)))
+
+(template -1200 800
+(if (and false 🎁 (and 📦 🍩) true)
   ((λ (x) (rest (' x x (' x)))) 🎁)
     (' 💣 🎁 nil nil nil nil nil  💣 💣)))
+
+(template -750 1250
+(let [(bombs (' 💣 💣 💣 💣
+              (' 💣 💣 💣 💣)
+               (' 💣 💣 💣 💣)))
+      (test (not 📦))]
+ (if test 🍣 bombs)))
+
+(template -1250 1750
+ (let [(bombs (' 💣 💣 💣 💣
+               (' 💣 💣 💣 💣)
+                (' 💣 💣 💣 💣)))
+       (test (or (and 📦 📦) 📦))]
+  (if test bombs 🍣)))
+
+(template -1750 1750
+(first (rest (rest (rest
+ (cons 🌮 (cons 💣
+  (cons 🌮 (cons 💣
+   (cons 🌮 (cons 💣 ('))))))))))))
+
+(template -1750 1750
+(first (rest (rest
+ (cons 🌮 (cons 💣
+  (cons 🌮 (cons 💣
+   (cons 🌮 (cons 💣 (')))))))))))
+
+
+(template -1800 1750
+(rest (rest (rest (rest
+ (cons 🌮 (cons 💣
+  (cons 🌮 (cons 💣
+   (cons 🌮 (cons 💣 ('))))))))))))
 
 (template -800 800
 (((λ (x) (λ (y)
@@ -99,6 +148,12 @@
      (* x 4)
      (* y 3)))) 📦)
  🌮))
+
+(template -2800 2800
+((((λ (x) (λ (y) (λ (z)
+      (if (and (= x y) (= y z))
+         (* x 8)
+         (* z 2))))) 📦) 📦) 📦))
 
 (template -800 800
 ((λ (x) (cond

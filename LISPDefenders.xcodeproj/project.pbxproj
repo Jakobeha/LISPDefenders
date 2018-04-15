@@ -32,8 +32,8 @@
 		361B791E208291FC00E1106C /* Locd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B791C208291FC00E1106C /* Locd.swift */; };
 		361B79202082921C00E1106C /* Loc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B791F2082921C00E1106C /* Loc.swift */; };
 		361B79212082921C00E1106C /* Loc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B791F2082921C00E1106C /* Loc.swift */; };
-		366150442083907300FEE967 /* Background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 366150432083907300FEE967 /* Background.jpg */; };
-		366150452083909600FEE967 /* Background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 366150432083907300FEE967 /* Background.jpg */; };
+		3661504A2083BBA000FEE967 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 366150492083BBA000FEE967 /* Background.png */; };
+		3661504B2083BBA000FEE967 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 366150492083BBA000FEE967 /* Background.png */; };
 		36B57CD32082C0FD00E957C8 /* SExpr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B790E20828B3400E1106C /* SExpr.swift */; };
 		36B57CD42082C0FD00E957C8 /* SToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B791020828B8700E1106C /* SToken.swift */; };
 		36B57CE42082C29B00E957C8 /* LispTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B57CE32082C29B00E957C8 /* LispTests.swift */; };
@@ -149,7 +149,7 @@
 		361B79192082918900E1106C /* Lex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lex.swift; sourceTree = "<group>"; };
 		361B791C208291FC00E1106C /* Locd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locd.swift; sourceTree = "<group>"; };
 		361B791F2082921C00E1106C /* Loc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loc.swift; sourceTree = "<group>"; };
-		366150432083907300FEE967 /* Background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Background.jpg; sourceTree = "<group>"; };
+		366150492083BBA000FEE967 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
 		36B57CD92082C26F00E957C8 /* LISPDefendersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LISPDefendersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B57CDD2082C26F00E957C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36B57CE32082C29B00E957C8 /* LispTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LispTests.swift; sourceTree = "<group>"; };
@@ -342,7 +342,7 @@
 		36B57D3020831FAA00E957C8 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
-				366150432083907300FEE967 /* Background.jpg */,
+				366150492083BBA000FEE967 /* Background.png */,
 				36B57D522083694500E957C8 /* Buffer Arrow.png */,
 				36B57D4F2083669D00E957C8 /* Buffer.png */,
 				36B57D3120831FAA00E957C8 /* CannonBase.png */,
@@ -475,7 +475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36B57D3920831FAA00E957C8 /* CannonHead.png in Resources */,
-				366150442083907300FEE967 /* Background.jpg in Resources */,
+				3661504A2083BBA000FEE967 /* Background.png in Resources */,
 				361B791420828C3000E1106C /* Standard.lisp in Resources */,
 				361B78FF20828A5100E1106C /* GameScene.sks in Resources */,
 				361B78EA20828A5100E1106C /* Main.storyboard in Resources */,
@@ -491,7 +491,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				366150452083909600FEE967 /* Background.jpg in Resources */,
 				36B57D542083694500E957C8 /* Buffer Arrow.png in Resources */,
 				361B78FB20828A5100E1106C /* Main.storyboard in Resources */,
 				36B57D3A20831FAA00E957C8 /* CannonHead.png in Resources */,
@@ -499,6 +498,7 @@
 				36B57D512083669D00E957C8 /* Buffer.png in Resources */,
 				361B790420828A5100E1106C /* Assets.xcassets in Resources */,
 				361B791520828C3000E1106C /* Standard.lisp in Resources */,
+				3661504B2083BBA000FEE967 /* Background.png in Resources */,
 				36B57D3620831FAA00E957C8 /* CannonBase.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

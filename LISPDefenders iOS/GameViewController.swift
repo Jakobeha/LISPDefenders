@@ -22,8 +22,8 @@ class GameViewController: UIViewController {
         skView.presentScene(scene)
         
         skView.ignoresSiblingOrder = true
-        skView.showsFPS = true
-        skView.showsNodeCount = true
+        //skView.showsFPS = true
+        //skView.showsNodeCount = true
     }
 
     override var shouldAutorotate: Bool {

@@ -11,8 +11,8 @@ import SpriteKit
 class LispSpawner {
     static let fullMinSpawnDelay: CGFloat = 4
     static let fullMaxSpawnDelay: CGFloat = 6
-    static let difficultyGrowthChange: CGFloat = 8
-    static let difficultyGrowthExponent: CGFloat = 1/1000
+    static let difficultyGrowthChange: CGFloat = 4
+    static let difficultyGrowthExponent: CGFloat = 1/250
     static let spawnDelayDecayChange: CGFloat = 0.5
     static let spawnDelayDecayExponent: CGFloat = 1/2500
     

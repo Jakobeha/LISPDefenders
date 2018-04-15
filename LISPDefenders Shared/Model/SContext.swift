@@ -32,11 +32,11 @@ struct SContext {
                 }
             }, //Want to replace identifiers, but not eval functions, because they can crash
             "let" : { (args, ctx, evalExpr) in
-                func parse(bindExprs: [SExpr]) -> [String : SExpr] {
-                    return Dictionary(uniqueKeysWithValues: bindExprs.map(parse))
+                func parse(bindExprs: [SExpr], evalExpr: (SExpr, SContext) -> SExpr) -> [String : SExpr] {
+                    return Dictionary(uniqueKeysWithValues: bindExprs.map { parse(bindExpr: $0, evalExpr: evalExpr) })
                 }
 
-                func parse(bindExpr: SExpr) -> (String, SExpr) {
+                func parse(bindExpr: SExpr, evalExpr: (SExpr, SContext) -> SExpr) -> (String, SExpr) {
                     switch bindExpr {
                     case .list(let bindArgs):
                         guard bindArgs.count == 2 else {
@@ -44,7 +44,7 @@ struct SContext {
                         }
                         switch (bindArgs[0], bindArgs[1]) {
                         case (.atom(.symbol(let binding)), let bound):
-                            return (binding, bound)
+                            return (binding, evalExpr(bound, ctx))
                         default:
                             fatalError("let: bad shape")
                         }
@@ -58,7 +58,7 @@ struct SContext {
                 }
                 switch (args[0], args[1]) {
                 case (.list(let bindExprs), let body):
-                    return evalExpr(body, ctx + SContext(valBinds: parse(bindExprs: bindExprs)))
+                    return evalExpr(body, ctx + SContext(valBinds: parse(bindExprs: bindExprs, evalExpr: evalExpr)))
                 default:
                     fatalError("let: bad shape")
                 }
